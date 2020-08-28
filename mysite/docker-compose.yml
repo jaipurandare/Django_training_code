@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_USER: "postgres_dev"
+      POSTGRES_DB: "postgres_dev"
+      POSTGRES_PASS: "postgres_dev"
+  migrations:
+    build: .
+    environment:
+      PORT: 8000
+    command: python manage.py migrate --noinput
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  web:
+    build: .
+    environment:
+      PORT: 8000
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - migrations
