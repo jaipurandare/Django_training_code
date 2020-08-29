@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Role(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256,null=False,blank = False)
     
     def __str__(self):
         return self.name
