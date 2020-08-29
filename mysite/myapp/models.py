@@ -10,6 +10,9 @@ class Role(models.Model):
     
     def fancy_name(self):
         return self.name+"!!!"
+    
+    def dict_rep(self):
+        return {'name' : self.name}
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
